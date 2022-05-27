@@ -1,5 +1,6 @@
 package Login;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +57,12 @@ class LoginPanel extends JPanel implements ActionListener{
 		signupButton.setBounds(251, 180, 88, 23);
 		this.add(signupButton);
 
-		loginButton.addActionListener(this);
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login sp = (Login)((JButton)e.getSource()).getTopLevelAncestor();
+				sp.viewScreen(new Main());
+			}
+		});
 
 		signupButton.addActionListener(new ActionListener() {
 			@Override
@@ -99,5 +105,5 @@ class LoginPanel extends JPanel implements ActionListener{
 		}
 
 	}
-
+	
 }
