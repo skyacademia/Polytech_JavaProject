@@ -108,8 +108,8 @@ public class signupPanel extends JPanel {
 
 				} else {
 					try {
-						Login lp = new Login();
-						Connection conn = lp.getConnection();
+						SqlConnection sqlConn = new SqlConnection();
+						Connection conn = sqlConn.getConnection();
 
 						PreparedStatement pstmt = conn.prepareStatement(sql);
 

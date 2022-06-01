@@ -2,6 +2,11 @@ package Login;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Menus extends JPanel {
-	Menus(){
+	Menus() throws SQLException{
 		setLayout(new BorderLayout());
 		TopMenu menu = new TopMenu();
 		JPanel menusPanel = new JPanel();
@@ -25,14 +30,30 @@ public class Menus extends JPanel {
 		JPanel menus_sub_1_1 = new JPanel();
 		JPanel menus_sub_1_2 = new JPanel();
 		
+		
+		MenuInfo menu_info = new MenuInfo();
+		ArrayList <String[]> menu_information = menu_info.getMenuInfo();
+		HashSet <String> category_text = new HashSet<String>();
+		category_text.add("ÀüÃ¼");
+		for (String[] menuItem : menu_information) {
+			category_text.add(menuItem[1]);
+		}
+		String[] category = category_text.toArray(new String[0]);
+		Arrays.sort(category);
 		menus_sub_1_1.add(new JLabel("Ä«Å×°í¸®"));
-		String[] category_text = {"ÀüÃ¼","½Ò±¹¼ö","ººÀ½¹ä"};
-		JComboBox categoryBox = new JComboBox(category_text);
+		JComboBox categoryBox = new JComboBox(category);
 		menus_sub_1_1.add(categoryBox);
 		
 		menus_sub_1_2.setLayout(new GridLayout(1,1));
 		String[] table_colum = {"ÄÚµå","Ä«Å×°í¸®","¸Þ´ºÀÌ¸§","±Ý¾×"};
-		String[][] table_row = {{"1", "½Ò±¹¼ö", "¾çÁö½Ò±¹¼ö", "9000"},{"2", "ººÀ½¹ä", "ÇØ»ê¹°ººÀ½¹ä", "12000"}};
+		String[][] table_row = new String[menu_information.size()][4];
+		for (int i=0; i<menu_information.size();i++) {
+			String[] getArray = new String[4];
+			getArray = menu_information.get(i);
+			for (int j=0; j<4;j++) {
+				table_row[i][j] = getArray[j];
+			}
+		}
 		JTable table = new JTable(table_row,table_colum);
 		JScrollPane scrollPane = new JScrollPane(table);
 		menus_sub_1_2.add(scrollPane);
@@ -73,5 +94,18 @@ public class Menus extends JPanel {
 		
 		this.setVisible(true);
 		this.setSize(1920, 1080);
+	}
+	public void getMenuInfo() throws SQLException {
+		SqlConnection sqlConn = new SqlConnection();
+		Connection conn = sqlConn.getConnection();
+		String sql = "select * from menu_info";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		while(rs.next()) {
+			rs.getInt("mId");
+			rs.getString("mCategory");
+			rs.getString("mMenu");
+			rs.getInt("mPrice");
+		}
 	}
 }

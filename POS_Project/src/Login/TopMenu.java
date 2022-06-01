@@ -3,6 +3,7 @@ package Login;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -36,8 +37,11 @@ public class TopMenu extends JPanel implements ActionListener {
 			sp.viewScreen(new Sales());
 			break;
 		case "메뉴 관리":
-			sp.viewScreen(new Menus());
-			break;
+			try {
+				sp.viewScreen(new Menus());
+				break;
+			} catch (SQLException e1) {}
+			
 		case "정보 수정":
 			sp.viewScreen(new PersonalInfo());
 			break;

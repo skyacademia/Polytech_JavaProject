@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,12 +59,7 @@ class LoginPanel extends JPanel implements ActionListener{
 		signupButton.setBounds(251, 180, 88, 23);
 		this.add(signupButton);
 
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login sp = (Login)((JButton)e.getSource()).getTopLevelAncestor();
-				sp.viewScreen(new Main());
-			}
-		});
+		loginButton.addActionListener(this);
 
 		signupButton.addActionListener(new ActionListener() {
 			@Override
@@ -78,14 +75,14 @@ class LoginPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		String id = idTextField.getText();
-		String pass = passTextField.getText();
-		Login lp = new Login();
+		String pass = new String(passTextField.getPassword());
+		Login sp = (Login)((JButton)e.getSource()).getTopLevelAncestor();
 
 		try {
-
+			SqlConnection sqlConn = new SqlConnection();
+			Connection conn = sqlConn.getConnection();
 			String sql_query = String.format("SELECT uPwd,grade,uStoreName FROM user_info WHERE uId = '%s' AND uPwd ='%s'", id, pass);
 
-			Connection conn = lp.getConnection();
 			Statement stmt = conn.createStatement();
 
 			ResultSet rset = stmt.executeQuery(sql_query);
@@ -93,8 +90,7 @@ class LoginPanel extends JPanel implements ActionListener{
 
 			if (pass.equals(rset.getString(1))) {
 				JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", 1);
-				Member mb = new Member(rset.getString(3), rset.getInt(2));
-				System.out.println(mb);
+				sp.viewScreen(new Main());
 				//메인 패널로 옮겨야됩니다.
 			} else
 				JOptionPane.showMessageDialog(this, "Login Failed", "로그인 실패", 0);
@@ -105,5 +101,4 @@ class LoginPanel extends JPanel implements ActionListener{
 		}
 
 	}
-	
 }

@@ -34,11 +34,4 @@ public class Login extends JFrame{
 		c.revalidate(); //패널들을 재배치할때 사용함.
 	}
 
-	Connection getConnection() throws SQLException {
-		Connection conn = null;
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Pos_DB?serverTimezone=UTC", "root",
-				"root");
-		return conn;
-	}
-
 }
