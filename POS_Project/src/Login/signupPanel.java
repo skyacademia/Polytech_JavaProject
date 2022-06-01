@@ -26,34 +26,39 @@ public class signupPanel extends JPanel {
 		this.setLayout(null);
 		
 		JLabel idLabel = new JLabel("아이디 : ");
-		idLabel.setBounds(836, 131, 48, 15);
+		idLabel.setFont(new Font("궁서", Font.PLAIN, 30));
+		idLabel.setBounds(686, 164, 126, 60);
 		
 		JLabel passLabel = new JLabel("비밀번호 : ");
-		passLabel.setBounds(825, 162, 60, 15);
+		passLabel.setFont(new Font("궁서", Font.PLAIN, 30));
+		passLabel.setBounds(655, 234, 157, 60);
 		
 		JLabel passReLabel = new JLabel("비밀번호 재확인 : ");
-		passReLabel.setBounds(784, 193, 100, 15);
+		passReLabel.setFont(new Font("궁서", Font.PLAIN, 30));
+		passReLabel.setBounds(553, 304, 259, 60);
 		
 		JLabel nameLabel = new JLabel("가게 이름 : ");
-		nameLabel.setBounds(820, 224, 64, 15);
+		nameLabel.setFont(new Font("궁서", Font.PLAIN, 30));
+		nameLabel.setBounds(642, 377, 170, 60);
 		
 		JLabel phoneLabel = new JLabel("연락처 번호 : ");
-		phoneLabel.setBounds(808, 252, 76, 15);
+		phoneLabel.setFont(new Font("궁서", Font.PLAIN, 30));
+		phoneLabel.setBounds(609, 447, 203, 60);
 
 		idTf = new JTextField(15);
-		idTf.setBounds(896, 128, 171, 21);
+		idTf.setBounds(824, 164, 290, 60);
 		
 		passTf = new JPasswordField(15);
-		passTf.setBounds(896, 159, 171, 21);
+		passTf.setBounds(824, 234, 290, 60);
 		
 		passReTf = new JPasswordField(15);
-		passReTf.setBounds(896, 190, 171, 21);
+		passReTf.setBounds(824, 304, 290, 60);
 		
 		nameTf = new JTextField(15);
-		nameTf.setBounds(896, 221, 171, 21);
+		nameTf.setBounds(824, 377, 290, 60);
 		
 		phoneTf = new JTextField(11);
-		phoneTf.setBounds(896, 249, 171, 21);
+		phoneTf.setBounds(824, 447, 290, 60);
 
 		this.add(idLabel);
 		this.add(idTf); // 아이디
@@ -61,7 +66,8 @@ public class signupPanel extends JPanel {
 		this.add(passLabel);
 		this.add(passTf); // pass
 		JLabel label = new JLabel("특수문자 + 8자");
-		label.setBounds(1071, 162, 90, 15);
+		label.setFont(new Font("굴림", Font.PLAIN, 20));
+		label.setBounds(1126, 244, 140, 40);
 		this.add(label); //보안설정
 
 		this.add(passReLabel);
@@ -79,7 +85,7 @@ public class signupPanel extends JPanel {
 		signupLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		registerButton = new JButton("회원가입");
-		registerButton.setBounds(977, 280, 90, 23);
+		registerButton.setBounds(824, 517, 290, 60);
 		registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.add(signupLabel);
