@@ -13,5 +13,4 @@ public class SqlConnection {
 	Connection getConnection() {
 		return this.c;
 	}
-	
 }

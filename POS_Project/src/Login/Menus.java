@@ -2,6 +2,9 @@ package Login;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.AncestorListener;
+import javax.swing.table.DefaultTableModel;
 
 public class Menus extends JPanel {
 	Menus() throws SQLException{
@@ -42,6 +47,7 @@ public class Menus extends JPanel {
 		Arrays.sort(category);
 		menus_sub_1_1.add(new JLabel("카테고리"));
 		JComboBox categoryBox = new JComboBox(category);
+		
 		menus_sub_1_1.add(categoryBox);
 		
 		menus_sub_1_2.setLayout(new GridLayout(1,1));
@@ -54,10 +60,12 @@ public class Menus extends JPanel {
 				table_row[i][j] = getArray[j];
 			}
 		}
-		JTable table = new JTable(table_row,table_colum);
+		DefaultTableModel dtm = new DefaultTableModel(table_row,table_colum);
+		JTable table = new JTable(dtm);
 		JScrollPane scrollPane = new JScrollPane(table);
 		menus_sub_1_2.add(scrollPane);
 		
+		categoryBox.addActionListener(new categoryAction(table));
 		
 		menus_sub_1.setLayout(new BorderLayout());
 		menus_sub_1.add("North",menus_sub_1_1);
@@ -106,6 +114,41 @@ public class Menus extends JPanel {
 			rs.getString("mCategory");
 			rs.getString("mMenu");
 			rs.getInt("mPrice");
+		}
+	}
+	class categoryAction implements ActionListener{
+		JTable table;
+		DefaultTableModel dtm;
+		categoryAction(JTable table){
+			this.table = table;
+			this.dtm = (DefaultTableModel)this.table.getModel();
+		}
+		public void actionPerformed(ActionEvent e) {
+			JComboBox combo=(JComboBox)e.getSource();
+			String category_name = combo.getSelectedItem().toString();
+			SqlConnection sqlConn;
+			try {
+				ResultSet rs = null;
+				if (category_name != "전체") {
+					sqlConn = new SqlConnection();
+					Connection conn = sqlConn.getConnection();
+					String sql = "select * from menu_info where mCategory=?";
+					PreparedStatement preState = conn.prepareStatement(sql);
+					preState.setString(1, category_name);
+					rs = preState.executeQuery();
+				}
+				dtm.setRowCount(0);
+				
+				while(rs.next()) {
+					String[] addingArray = new String[4];
+					addingArray[0] = Integer.toString(rs.getInt("mId"));
+					addingArray[1] = rs.getString("mCategory");
+					addingArray[2] = rs.getString("mMenu");
+					addingArray[3] = Integer.toString(rs.getInt("mPrice"));
+					dtm.addRow(addingArray);
+				}
+			} catch (SQLException e1) {}
+			
 		}
 	}
 }
