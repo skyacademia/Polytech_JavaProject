@@ -63,6 +63,8 @@ public class Menus extends JPanel {
 				table_row[i][j] = getArray[j];
 			}
 		}
+
+//		더블클릭 가능 O, 수정 X
 		DefaultTableModel dtm = new DefaultTableModel(table_row,table_colum) {
 			public boolean isCellEditable(int i, int c) {
                 return false;
@@ -93,7 +95,9 @@ public class Menus extends JPanel {
 			menus_sub_2_1.add(new JLabel(menuInfoText[i]));
 			menus_sub_2_1.add(menuInfoInput[i]);
 		}
-		menuInfoInput[0].setEnabled(false);
+//		
+//		menuInfoInput[0].setEnabled(false);
+		
 		JButton[] menuInfoBtn = {new JButton("추가"),new JButton("수정"),new JButton("삭제")};
 		for (int i=0; i<menuInfoBtn.length; i++) {
 			menus_sub_2_2.add(menuInfoBtn[i]);
@@ -145,6 +149,7 @@ class categoryAction implements ActionListener{
 		this.table = table;
 		this.dtm = (DefaultTableModel)this.table.getModel();
 	}
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		JComboBox combo=(JComboBox)e.getSource();
 		String category_name = combo.getSelectedItem().toString();
@@ -176,6 +181,53 @@ class categoryAction implements ActionListener{
 				dtm.addRow(addingArray);
 			}
 		} catch (SQLException e1) {}
-		
 	}
+	
 }
+
+//class buttonAction implements ActionListener{
+//	String[] addingInfo = new String[4];
+//	Connection c;
+//	buttonAction(JTextField[] textfield) {
+//		for (int i=0; i<4; i++) {
+//			this.addingInfo[i] = textfield[i].getText(); 
+//		}
+//	}
+//	public void actionPerformed(ActionEvent e) {
+//		JButton btn = (JButton) e.getSource();
+//		String sql = null;
+//		ResultSet rs = null;
+//		try {
+//			SqlConnection sqlConn = new SqlConnection();
+//			c = sqlConn.getConnection();
+//			switch(btn.getText()) {
+//			case "추가":{
+//				sql = "insert into menu_info values(?,?,?,?)";
+//				PreparedStatement pres = c.prepareStatement(sql);
+//				pres.setInt(1, Integer.parseInt(addingInfo[0]));
+//				System.out.println(Integer.parseInt(addingInfo[0]));
+//				pres.setString(2, addingInfo[1]);
+//				pres.setString(3, addingInfo[2]);
+//				pres.setInt(4, Integer.parseInt(addingInfo[3]));
+//				pres.executeUpdate();
+//			}
+//			case "수정":{
+//				sql = "update menu_info SET mCategory = ?, mMenu = ?, mPrice=? where mId=?";
+//				PreparedStatement pres = c.prepareStatement(sql);
+//				pres.setString(1, addingInfo[1]);
+//				pres.setString(2, addingInfo[2]);
+//				pres.setInt(3, Integer.parseInt(addingInfo[3]));
+//				pres.setInt(4, Integer.parseInt(addingInfo[0]));
+//				pres.executeUpdate();
+//			}
+//			case "삭제":{
+//				sql = "delete from menu_info where mId=?";
+//				PreparedStatement pres = c.prepareStatement(sql);
+//				pres.setInt(1, Integer.parseInt(addingInfo[0]));
+//				pres.executeUpdate();
+//			}
+//			}
+//		} catch (SQLException e1) {}
+//	}
+//
+//}

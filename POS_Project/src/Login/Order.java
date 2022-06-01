@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Order extends JFrame {
 	private JButton btn;
@@ -75,5 +78,13 @@ public class Order extends JFrame {
 
 	this.setVisible(true);
 	this.setSize(1920,1080);
+	}
+	public void updateButton(JButton[] categoryBtns) throws SQLException {
+		MenuInfo info = new MenuInfo();
+		ArrayList <String[]> menu = info.getMenuInfo();
+		HashSet <String> category_text = new HashSet<String>();
+		for (String[] menuItem : menu) {
+			category_text.add(menuItem[1]);
+		}
 	}
 }
