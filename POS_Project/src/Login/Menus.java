@@ -138,44 +138,44 @@ public class Menus extends JPanel {
 		}
 	}
 }
-	class categoryAction implements ActionListener{
-		JTable table;
-		DefaultTableModel dtm;
-		categoryAction(JTable table){
-			this.table = table;
-			this.dtm = (DefaultTableModel)this.table.getModel();
-		}
-		public void actionPerformed(ActionEvent e) {
-			JComboBox combo=(JComboBox)e.getSource();
-			String category_name = combo.getSelectedItem().toString();
-			SqlConnection sqlConn;
-			try {
-				String sql = null;
-				ResultSet rs = null;
-				sqlConn = new SqlConnection();
-				Connection conn = sqlConn.getConnection();
-				if (category_name != "전체") {
-					sql = "select * from menu_info where mCategory=?";
-					PreparedStatement preState = conn.prepareStatement(sql);
-					preState.setString(1, category_name);
-					rs = preState.executeQuery();
-				}
-				else if(category_name.equals("전체")){
-					sql = "select * from menu_info";
-					Statement st = conn.createStatement();
-					rs = st.executeQuery(sql);
-				}
-				dtm.setRowCount(0);
-				
-				while(rs.next()) {
-					String[] addingArray = new String[4];
-					addingArray[0] = Integer.toString(rs.getInt("mId"));
-					addingArray[1] = rs.getString("mCategory");
-					addingArray[2] = rs.getString("mMenu");
-					addingArray[3] = Integer.toString(rs.getInt("mPrice"));
-					dtm.addRow(addingArray);
-				}
-			} catch (SQLException e1) {}
-			
-		}
+class categoryAction implements ActionListener{
+	JTable table;
+	DefaultTableModel dtm;
+	categoryAction(JTable table){
+		this.table = table;
+		this.dtm = (DefaultTableModel)this.table.getModel();
 	}
+	public void actionPerformed(ActionEvent e) {
+		JComboBox combo=(JComboBox)e.getSource();
+		String category_name = combo.getSelectedItem().toString();
+		SqlConnection sqlConn;
+		try {
+			String sql = null;
+			ResultSet rs = null;
+			sqlConn = new SqlConnection();
+			Connection conn = sqlConn.getConnection();
+			if (category_name != "전체") {
+				sql = "select * from menu_info where mCategory=?";
+				PreparedStatement preState = conn.prepareStatement(sql);
+				preState.setString(1, category_name);
+				rs = preState.executeQuery();
+			}
+			else if(category_name.equals("전체")){
+				sql = "select * from menu_info";
+				Statement st = conn.createStatement();
+				rs = st.executeQuery(sql);
+			}
+			dtm.setRowCount(0);
+			
+			while(rs.next()) {
+				String[] addingArray = new String[4];
+				addingArray[0] = Integer.toString(rs.getInt("mId"));
+				addingArray[1] = rs.getString("mCategory");
+				addingArray[2] = rs.getString("mMenu");
+				addingArray[3] = Integer.toString(rs.getInt("mPrice"));
+				dtm.addRow(addingArray);
+			}
+		} catch (SQLException e1) {}
+		
+	}
+}
