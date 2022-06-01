@@ -36,32 +36,27 @@ class LoginPanel extends JPanel implements ActionListener{
 		this.setLayout(null);
 
 		JLabel idLabel = new JLabel(" 아이디 : ");
-		idLabel.setFont(new Font("궁서", Font.PLAIN, 30));
-		idLabel.setBounds(650, 364, 180, 65);
+		idLabel.setBounds(101, 121, 52, 15);
 		this.add(idLabel);
 
 		idTextField = new JTextField(15);
-		idTextField.setFont(new Font("궁서", Font.PLAIN, 30));
-		idTextField.setBounds(842, 364, 410, 65);
+		idTextField.setBounds(165, 118, 171, 21);
 		this.add(idTextField);
 
 		JLabel passLabel = new JLabel(" 비밀번호 : ");
-		passLabel.setFont(new Font("궁서", Font.PLAIN, 30));
-		passLabel.setBounds(650, 459, 180, 65);
+		passLabel.setBounds(101, 152, 64, 15);
 		this.add(passLabel);
 
 		passTextField = new JPasswordField(15);
-		passTextField.setFont(new Font("궁서", Font.PLAIN, 30));
-		passTextField.setBounds(842, 459, 410, 65);
+		passTextField.setBounds(165, 149, 171, 21);
 		this.add(passTextField);
-		
-		
+
 		JButton loginButton = new JButton("로그인");
-		loginButton.setBounds(1052, 554, 200, 80);
+		loginButton.setBounds(165, 180, 81, 23);
 		this.add(loginButton);
 
 		JButton signupButton = new JButton("회원가입");
-		signupButton.setBounds(842, 554, 200, 80);
+		signupButton.setBounds(251, 180, 88, 23);
 		this.add(signupButton);
 
 		loginButton.addActionListener(this);
@@ -73,22 +68,7 @@ class LoginPanel extends JPanel implements ActionListener{
 				sp.viewScreen(new signupPanel());
 			}
 		});
-
-		passTextField.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginButton.doClick();
-				}
-			}
-		});
-		idTextField.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginButton.doClick();
-				}
-			}
-			
-		});
+		
 	}
 
 	@Override
