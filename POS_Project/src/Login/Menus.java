@@ -5,6 +5,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +68,8 @@ public class Menus extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(table);
 		menus_sub_1_2.add(scrollPane);
 		
+		
+		
 		categoryBox.addActionListener(new categoryAction(table));
 		
 		menus_sub_1.setLayout(new BorderLayout());
@@ -89,6 +94,17 @@ public class Menus extends JPanel {
 			menus_sub_2_2.add(menuInfoBtn[i]);
 		}
 		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JTable jt = (JTable)e.getSource();
+				int row = jt.getSelectedRow();
+				menuInfoInput[0].setText((String)jt.getValueAt(row, 0));
+				menuInfoInput[1].setText((String)jt.getValueAt(row, 1));
+				menuInfoInput[2].setText((String)jt.getValueAt(row, 2));
+				menuInfoInput[3].setText((String)jt.getValueAt(row, 3));
+			}
+		});
 		menus_sub_2.setLayout(new BorderLayout());
 		menus_sub_2.add("Center",menus_sub_2_1);
 		menus_sub_2.add("South",menus_sub_2_2);
@@ -116,6 +132,7 @@ public class Menus extends JPanel {
 			rs.getInt("mPrice");
 		}
 	}
+}
 	class categoryAction implements ActionListener{
 		JTable table;
 		DefaultTableModel dtm;
@@ -151,4 +168,3 @@ public class Menus extends JPanel {
 			
 		}
 	}
-}
