@@ -14,7 +14,7 @@ public class Login extends JFrame{
 		Login lp = new Login();
 	}
 	
-	public Login() {
+	public Login() { 
 
 		LoginPanel lp = new LoginPanel();
 		signupPanel sp = new signupPanel();
