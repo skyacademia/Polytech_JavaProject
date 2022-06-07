@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MenuInfo {
-	Connection c;
+	private Connection c;
 	ArrayList <Object[]> menu = new ArrayList<Object[]>();
 	
 	MenuInfo() throws SQLException{
@@ -35,12 +35,7 @@ public class MenuInfo {
 		}
 		return menu;
 	}
-	public void updateMenuInfo(String category, String menu, int price) throws SQLException {
-		String sql = "insert into menu_info valeus(?,?,?)";
-		PreparedStatement st = c.prepareStatement(sql);
-		st.setString(1, category);
-		st.setString(2, menu);
-		st.setInt(3, price);
-		st.executeUpdate();
+	public Connection getConnection() {
+		return this.c;
 	}
 }

@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +27,10 @@ import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
 
 public class Menus extends JPanel {
+	ArrayList<Object[]> menu_information = new ArrayList<Object[]>();
+	Connection c;
+	DefaultTableModel tModel;
+	MenuInfo menu_info;
 	Menus() throws SQLException {
 		setLayout(new BorderLayout());
 		TopMenu menu = new TopMenu();
@@ -38,41 +43,42 @@ public class Menus extends JPanel {
 		JPanel menus_sub_1_1 = new JPanel();
 		JPanel menus_sub_1_2 = new JPanel();
 
-		MenuInfo menu_info = new MenuInfo();
-		ArrayList<Object[]> menu_information = menu_info.getMenuInfo();
+		menu_info = new MenuInfo();
+		c = menu_info.getConnection();
+		menu_information = menu_info.getMenuInfo();
 		HashSet<String> category_text = new HashSet<String>();
 		category_text.add("전체");
 		for (Object[] menuItem : menu_information) {
 			category_text.add((String) menuItem[1]);
 		}
 		String[] category = category_text.toArray(new String[0]);
-		Arrays.sort(category);
-		menus_sub_1_1.add(new JLabel("카테고리"));
-		JComboBox categoryBox = new JComboBox(category);
-
-		menus_sub_1_1.add(categoryBox);
-
-		menus_sub_1_2.setLayout(new GridLayout(1, 1));
-		String[] table_colum = { "코드", "카테고리", "메뉴", "가격" };
-		String[][] table_row = new String[menu_information.size()][4];
-		for (int i = 0; i < menu_information.size(); i++) {
-			Object[] getArray = new Object[4];
-			getArray = menu_information.get(i);
-			for (int j = 0; j < 4; j++) {
-				table_row[i][j] = (String) getArray[j];
+		for (int i=0; i<category.length;i++) {
+			if(category[i].equals("전체")) {
+				String space = category[0];
+				category[0] = category[i];
+				category[i] = space;
 			}
 		}
-
-		DefaultTableModel dtm = new DefaultTableModel(table_row, table_colum) {
+		Arrays.sort(category,1,category.length);
+		menus_sub_1_1.add(new JLabel("카테고리"));
+		JComboBox categoryBox = new JComboBox(category);
+		menus_sub_1_1.add(categoryBox);
+		
+		menus_sub_1_2.setLayout(new GridLayout(1, 1));
+		String[] table_colum = { "코드", "카테고리", "메뉴", "가격" };
+		tModel = new DefaultTableModel(table_colum,0) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
-		JTable table = new JTable(dtm);
+		for(int i=0; i<menu_information.size(); i++) {
+			tModel.addRow(menu_information.get(i));
+		}
+		JTable table = new JTable(tModel);		
 		JScrollPane scrollPane = new JScrollPane(table);
 		menus_sub_1_2.add(scrollPane);
 
-		categoryBox.addActionListener(new categoryAction(dtm));
+		categoryBox.addActionListener(new categoryAction());
 
 		menus_sub_1.setLayout(new BorderLayout());
 		menus_sub_1.add("North", menus_sub_1_1);
@@ -96,18 +102,23 @@ public class Menus extends JPanel {
 
 		JButton[] menuInfoBtn = { new JButton("추가"), new JButton("수정"), new JButton("삭제") };
 		for (int i = 0; i < menuInfoBtn.length; i++) {
+			menuInfoBtn[i].addActionListener(new btnAction(menuInfoInput,categoryBox));
 			menus_sub_2_2.add(menuInfoBtn[i]);
 		}
 
 		table.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				JTable jt = (JTable) e.getSource();
 				int row = jt.getSelectedRow();
-				menuInfoInput[0].setText((String) jt.getValueAt(row, 0));
-				menuInfoInput[1].setText((String) jt.getValueAt(row, 1));
-				menuInfoInput[2].setText((String) jt.getValueAt(row, 2));
-				menuInfoInput[3].setText((String) jt.getValueAt(row, 3));
+				String name = (String)jt.getValueAt(row, 2);			
+				for(Object[] menu : menu_information) {
+					if(name.equals((String)menu[2])) {
+						menuInfoInput[0].setText(Integer.toString((int)menu[0]));
+						menuInfoInput[1].setText((String)menu[1]);
+						menuInfoInput[2].setText((String)menu[2]);
+						menuInfoInput[3].setText(Integer.toString((int)menu[3]));
+					}
+				}
 			}
 		});
 		menus_sub_2.setLayout(new BorderLayout());
@@ -126,56 +137,32 @@ public class Menus extends JPanel {
 	}
 	
 	class categoryAction implements ActionListener {
-		DefaultTableModel dtm;
-
-		categoryAction(DefaultTableModel dtm) {
-			this.dtm = dtm;
-		}
-
-		@Override
 		public void actionPerformed(ActionEvent e) {
+			tModel.setNumRows(0);
 			JComboBox combo = (JComboBox) e.getSource();
 			String category_name = combo.getSelectedItem().toString();
-			SqlConnection sqlConn;
-			try {
-				String sql = null;
-				ResultSet rs = null;
-				sqlConn = new SqlConnection();
-				Connection conn = sqlConn.getConnection();
-				if (category_name != "전체") {
-					sql = "select * from menu_info where mCategory=?";
-					PreparedStatement preState = conn.prepareStatement(sql);
-					preState.setString(1, category_name);
-					rs = preState.executeQuery();
-				} else if (category_name.equals("전체")) {
-					sql = "select * from menu_info";
-					Statement st = conn.createStatement();
-					rs = st.executeQuery(sql);
+			
+				if(!category_name.equals("전체")) {
+					for(Object[] menu : menu_information) {
+						if(category_name.equals((String)menu[1])) {
+							tModel.addRow(menu);
+						}
+					}
 				}
-				dtm.setRowCount(0);
-
-				while (rs.next()) {
-					String[] addingArray = new String[4];
-					addingArray[0] = Integer.toString(rs.getInt("mId"));
-					addingArray[1] = rs.getString("mCategory");
-					addingArray[2] = rs.getString("mMenu");
-					addingArray[3] = Integer.toString(rs.getInt("mPrice"));
-					dtm.addRow(addingArray);
+				else if(category_name.equals("전체")) {
+					for(Object[] menu : menu_information) {
+						tModel.addRow(menu);
+					}
 				}
-			} catch (SQLException e1) {
 			}
 		}
-	}
 	class btnAction implements ActionListener{
-		DefaultTableModel dtm;
 		JTextField[] menuInfoInput;
-		String[] addingText = new String[4];
-		Connection c;
-		btnAction(DefaultTableModel dtm,JTextField[] menuInfoInput) throws SQLException{
-			this.dtm = dtm;
+		Object[] addingText = new Object[4];
+		JComboBox categoryBox;
+		btnAction(JTextField[] menuInfoInput,JComboBox categoryBox){
 			this.menuInfoInput = menuInfoInput;
-			SqlConnection sqlc = new SqlConnection();
-			c=sqlc.getConnection();
+			this.categoryBox = categoryBox;
 		}
 		public void actionPerformed(ActionEvent e) {
 			JButton btn = (JButton)e.getSource();
@@ -187,36 +174,62 @@ public class Menus extends JPanel {
 			case "추가":{
 				String sql = "insert into menu_info values(?,?,?,?)";
 				PreparedStatement pstat=c.prepareStatement(sql);
-				pstat.setInt(1, Integer.parseInt(addingText[0]));
-				pstat.setString(2, addingText[1]);
-				pstat.setString(3, addingText[2]);
-				pstat.setInt(4, Integer.parseInt(addingText[3]));
-				pstat.executeUpdate();
+				pstat.setInt(1, Integer.parseInt((String)addingText[0]));
+				pstat.setString(2, (String)addingText[1]);
+				pstat.setString(3, (String)addingText[2]);
+				pstat.setInt(4, Integer.parseInt((String)addingText[3]));
+				int change=pstat.executeUpdate();
+				if(change>0) {
+					JOptionPane.showMessageDialog(null, "메뉴가 추가되었습니다.");
+				}
+				menu_information.clear();
+				menu_information = menu_info.getMenuInfo();
+				categoryBox.setSelectedIndex(0);
+				break;
 			}
 			case "수정":{
 				String sql = "update menu_info set mCategory=?, mMenu=?, mPrice=? where mId=?";
 				PreparedStatement pstat=c.prepareStatement(sql);
-				pstat.setString(1, addingText[1]);
-				pstat.setString(2, addingText[2]);
-				pstat.setInt(3, Integer.parseInt(addingText[3]));
-				pstat.setInt(4, Integer.parseInt(addingText[0]));
-				pstat.executeUpdate();
+				pstat.setString(1, (String)addingText[1]);
+				pstat.setString(2, (String)addingText[2]);
+				pstat.setInt(3, Integer.parseInt((String)addingText[3]));
+				pstat.setInt(4, Integer.parseInt((String)addingText[0]));
+				int change=pstat.executeUpdate();
+				if(change>0) {
+					JOptionPane.showMessageDialog(null, "메뉴가 수정되었습니다.");
+				}
+				menu_information.clear();
+				menu_information = menu_info.getMenuInfo();
+				categoryBox.setSelectedIndex(0);
+				break;
 			}
 			case "삭제":{
 				String sql = "delete from menu_info where mId=?";
 				PreparedStatement pstat=c.prepareStatement(sql);
-				pstat.setInt(1, Integer.parseInt(addingText[0]));
-				pstat.executeUpdate();
+				pstat.setInt(1, Integer.parseInt((String)addingText[0]));
+				int change = pstat.executeUpdate();
+				if(change>0) {
+					JOptionPane.showMessageDialog(null, "메뉴가 삭제되었습니다.");
+				}
+				menu_information.clear();
+				menu_information = menu_info.getMenuInfo();
+				categoryBox.setSelectedIndex(0);
+				break;
 			}
 			}
 			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
+	
 	}
+	public void showMenuTable() {
+		tModel.setNumRows(0);
+		for (int i = 0; i < menu_information.size(); i++) {
+			tModel.addRow(menu_information.get(i));
+		}
 }
+	}
 
