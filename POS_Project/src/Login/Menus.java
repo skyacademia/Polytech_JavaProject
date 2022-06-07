@@ -41,19 +41,19 @@ public class Menus extends JPanel {
 		MenuInfo menu_info = new MenuInfo();
 		ArrayList<Object[]> menu_information = menu_info.getMenuInfo();
 		HashSet<String> category_text = new HashSet<String>();
-		category_text.add("ÀüÃ¼");
+		category_text.add("ì „ì²´");
 		for (Object[] menuItem : menu_information) {
 			category_text.add((String) menuItem[1]);
 		}
 		String[] category = category_text.toArray(new String[0]);
 		Arrays.sort(category);
-		menus_sub_1_1.add(new JLabel("Ä«Å×°í¸®"));
+		menus_sub_1_1.add(new JLabel("ì¹´í…Œê³ ë¦¬"));
 		JComboBox categoryBox = new JComboBox(category);
 
 		menus_sub_1_1.add(categoryBox);
 
 		menus_sub_1_2.setLayout(new GridLayout(1, 1));
-		String[] table_colum = { "ÄÚµå", "Ä«Å×°í¸®", "¸Þ´ºÀÌ¸§", "±Ý¾×" };
+		String[] table_colum = { "ì½”ë“œ", "ì¹´í…Œê³ ë¦¬", "ë©”ë‰´", "ê°€ê²©" };
 		String[][] table_row = new String[menu_information.size()][4];
 		for (int i = 0; i < menu_information.size(); i++) {
 			Object[] getArray = new Object[4];
@@ -63,7 +63,6 @@ public class Menus extends JPanel {
 			}
 		}
 
-//		´õºíÅ¬¸¯ °¡´É O, ¼öÁ¤ X
 		DefaultTableModel dtm = new DefaultTableModel(table_row, table_colum) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
@@ -85,7 +84,7 @@ public class Menus extends JPanel {
 		menus_sub_2_1.setLayout(new GridLayout(4, 2));
 		menus_sub_2_2.setLayout(new GridLayout(1, 3));
 
-		String[] menuInfoText = { "ÄÚµå", "Ä«Å×°í¸®", "¸Þ´ºÀÌ¸§", "±Ý¾×" };
+		String[] menuInfoText = { "ì½”ë“œ", "ì¹´í…Œê³ ë¦¬", "ë©”ë‰´ì´ë¦„", "ê°€ê²©" };
 		JTextField[] menuInfoInput = new JTextField[4];
 		for (int i = 0; i < menuInfoText.length; i++) {
 			menuInfoInput[i] = new JTextField();
@@ -95,7 +94,7 @@ public class Menus extends JPanel {
 //		
 //		menuInfoInput[0].setEnabled(false);
 
-		JButton[] menuInfoBtn = { new JButton("Ãß°¡"), new JButton("¼öÁ¤"), new JButton("»èÁ¦") };
+		JButton[] menuInfoBtn = { new JButton("ì¶”ê°€"), new JButton("ìˆ˜ì •"), new JButton("ì‚­ì œ") };
 		for (int i = 0; i < menuInfoBtn.length; i++) {
 			menus_sub_2_2.add(menuInfoBtn[i]);
 		}
@@ -143,12 +142,12 @@ public class Menus extends JPanel {
 				ResultSet rs = null;
 				sqlConn = new SqlConnection();
 				Connection conn = sqlConn.getConnection();
-				if (category_name != "ÀüÃ¼") {
+				if (category_name != "ì „ì²´") {
 					sql = "select * from menu_info where mCategory=?";
 					PreparedStatement preState = conn.prepareStatement(sql);
 					preState.setString(1, category_name);
 					rs = preState.executeQuery();
-				} else if (category_name.equals("ÀüÃ¼")) {
+				} else if (category_name.equals("ì „ì²´")) {
 					sql = "select * from menu_info";
 					Statement st = conn.createStatement();
 					rs = st.executeQuery(sql);
@@ -185,7 +184,7 @@ public class Menus extends JPanel {
 			}
 			try {
 			switch(btn.getText()) {
-			case "Ãß°¡":{
+			case "ì¶”ê°€":{
 				String sql = "insert into menu_info values(?,?,?,?)";
 				PreparedStatement pstat=c.prepareStatement(sql);
 				pstat.setInt(1, Integer.parseInt(addingText[0]));
@@ -194,7 +193,7 @@ public class Menus extends JPanel {
 				pstat.setInt(4, Integer.parseInt(addingText[3]));
 				pstat.executeUpdate();
 			}
-			case "¼öÁ¤":{
+			case "ìˆ˜ì •":{
 				String sql = "update menu_info set mCategory=?, mMenu=?, mPrice=? where mId=?";
 				PreparedStatement pstat=c.prepareStatement(sql);
 				pstat.setString(1, addingText[1]);
@@ -203,7 +202,7 @@ public class Menus extends JPanel {
 				pstat.setInt(4, Integer.parseInt(addingText[0]));
 				pstat.executeUpdate();
 			}
-			case "»èÁ¦":{
+			case "ì‚­ì œ":{
 				String sql = "delete from menu_info where mId=?";
 				PreparedStatement pstat=c.prepareStatement(sql);
 				pstat.setInt(1, Integer.parseInt(addingText[0]));

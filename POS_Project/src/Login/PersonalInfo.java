@@ -22,7 +22,7 @@ public class PersonalInfo extends JPanel{
 		JPanel info_sub_2 = new JPanel();
 		
 		info_sub_1.setLayout(new GridLayout(5,2));
-		String[] personInfoText = {"¾ÆÀÌµğ", "ºñ¹Ğ¹øÈ£", "»õºñ¹Ğ¹øÈ£", "»õºñ¹Ğ¹øÈ£ È®ÀÎ", "°¡°ÔÀÌ¸§"};
+		String[] personInfoText = {"ì•„ì´ë””", "ë¹„ë°€ë²ˆí˜¸", "ìƒˆë¹„ë°€ë²ˆí˜¸", "ìƒˆë¹„ë°€ë²ˆí˜¸ í™•ì¸", "ê°€ê²Œ ì´ë¦„"};
 		JTextField[] personInfoInput = new JTextField[5];
 		for (int i=0; i<personInfoText.length; i++) {
 			JPanel newPanel = new JPanel();
@@ -31,7 +31,7 @@ public class PersonalInfo extends JPanel{
 			newPanel.add(personInfoInput[i]);
 			info_sub_1.add(newPanel);
 		}
-		JButton[] menuInfoBtn = {new JButton("Á¤º¸¼öÁ¤"),new JButton("°èÁ¤»èÁ¦")};
+		JButton[] menuInfoBtn = {new JButton("ì •ë³´ìˆ˜ì •"),new JButton("ê³„ì •ì‚­ì œ")};
 		for (int i=0; i<menuInfoBtn.length; i++) {
 			info_sub_2.add(menuInfoBtn[i]);
 		}

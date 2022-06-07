@@ -61,7 +61,7 @@ public class Order extends JFrame {
 			}
 			category_menu.put(category, sorting_menu);
 		}
-		// Ä«Å×°í¸® ¹öÆ° »ý¼º
+
 		categoryButton[] categoryBtns = new categoryButton[8];
 		Iterator hasIter = categorys.iterator();
 		for (int i = 0; i < categoryBtns.length; i++) {
@@ -76,13 +76,12 @@ public class Order extends JFrame {
 		}
 
 		tablePanel.setLayout(new GridLayout(1, 1));
-		String[] table_colum = { "»óÇ°¸í", "¼ö·®", "°¡°Ý", "ÇÕ°è" };
+		String[] table_colum = { "ë©”ë‰´ì´ë¦„", "ê°œìˆ˜", "ê°€ê²©", "í•©ê³„" };
 		tModel = new DefaultTableModel(table_colum, 0) {
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
-		// Å×ÀÌºí¹öÆ°¿¡ ÁÖ¹® Á¤º¸
 		
 		JTable table = new JTable(tModel);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -95,12 +94,11 @@ public class Order extends JFrame {
 		JPanel info_sub_3 = new JPanel();
 
 		info_sub_2.setLayout(new GridLayout(1, 2, 0, 10));
-		JLabel totalLabel = new JLabel("ÃÑ ±Ý¾×");
+		JLabel totalLabel = new JLabel("ì´ ê¸ˆì•¡");
 		totalPrice.setEnabled(false);
 		info_sub_2.add(totalLabel);
 		info_sub_2.add(totalPrice);
 
-		// ¸Þ´º ¹öÆ° »ý¼º
 		itemPanel.setLayout(new GridLayout(2, 4));
 		itemBtns = new menuButton[8];
 		for (int i = 0; i < itemBtns.length; i++) {
@@ -110,19 +108,19 @@ public class Order extends JFrame {
 		}
 
 		info_sub_1.setLayout(new GridLayout(1, 2));
-		JButton addBtn = new JButton("¼ö·® +");
+		JButton addBtn = new JButton("ìˆ˜ëŸ‰ +");
 		addBtn.addActionListener(new countAction(table));
-		JButton minusBtn = new JButton("¼ö·® -");
+		JButton minusBtn = new JButton("ìˆ˜ëŸ‰ -");
 		minusBtn.addActionListener(new countAction(table));
 		info_sub_1.add(addBtn);
 		info_sub_1.add(minusBtn);
 
 		info_sub_3.setLayout(new GridLayout(1, 3, 0, 10));
-		JButton cardBtn = new JButton("Ä«µå");
+		JButton cardBtn = new JButton("ì¹´ë“œ");
 		cardBtn.addActionListener(new paymentAction(cardBtn.getText()));
-		JButton cashBtn = new JButton("Çö±Ý");
+		JButton cashBtn = new JButton("í˜„ê¸ˆ");
 		cashBtn.addActionListener(new paymentAction(cashBtn.getText()));
-		JButton cancelBtn = new JButton("Ãë¼Ò");
+		JButton cancelBtn = new JButton("ì·¨ì†Œ");
 		cancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btn.setOrderInfo(order_info);
@@ -170,7 +168,7 @@ public class Order extends JFrame {
 				name = (String) table.getValueAt(rowIndex, 0);
 			}
 			switch (countBtn.getText()) {
-				case "¼ö·® +": {
+				case "ìˆ˜ëŸ‰ +": {
 					for (Object[] order : order_info) {
 						if (order[0].equals(name)) {
 							order[1] = (int) order[1] + 1;
@@ -179,7 +177,7 @@ public class Order extends JFrame {
 					}
 					break;
 				}
-				case "¼ö·® -": {
+				case "ìˆ˜ëŸ‰ -": {
 					for (Object[] order : order_info) {
 						if (order[0].equals(name)) {
 							order[1] = (int) order[1] - 1;
@@ -214,7 +212,7 @@ public class Order extends JFrame {
 				price = Integer.parseInt(totalPrice.getText());
 				sql = "insert into daily_info values('" + formatedTime + "'," + price + ",'" + payment + "')";
 				stat.executeUpdate(sql);
-				JOptionPane.showMessageDialog(null, String.format("%d¿ø °áÁ¦µÇ¾ú½À´Ï´Ù.", price));
+				JOptionPane.showMessageDialog(null, String.format("%dì› ê²°ì œë˜ì—ˆìŠµë‹ˆë‹¤.", price));
 				order_info.clear();
 				btn.afterOrder();
 				dispose();
@@ -267,7 +265,6 @@ public class Order extends JFrame {
 			if (clickedBtn.getText() != null) {
 				Object[] sendingData = { menu_name, count, menu_price, menu_price * count };
 
-				// °°Àº °ªÀÌ ÀÖÀ¸¸é °¹¼ö¸¸, ¾øÀ¸¸é Ãß°¡
 				boolean added = false;
 				for (int i = 0; i < order_info.size(); i++) {
 					if (order_info.get(i)[0].equals(sendingData[0])) {

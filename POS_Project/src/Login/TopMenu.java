@@ -15,8 +15,8 @@ public class TopMenu extends JPanel implements ActionListener {
 	TopMenu(){
 		setLayout(new GridLayout(1,5));
 		
-		JButton[] menuBtn = {new JButton("ÁÖ¹®"),new JButton("¸ÅÃâ Á¶È¸"),new JButton("¸Þ´º °ü¸®"),
-				new JButton("Á¤º¸ ¼öÁ¤"),new JButton("·Î±×¾Æ¿ô")};
+		JButton[] menuBtn = {new JButton("ì£¼ë¬¸"),new JButton("ë§¤ì¶œ ì¡°íšŒ"),new JButton("ë©”ë‰´ ê´€ë¦¬"),
+				new JButton("ì •ë³´ ìˆ˜ì •"),new JButton("ë¡œê·¸ì•„ì›ƒ")};
 		
 		for(int i=0; i<menuBtn.length; i++) {
 			menuBtn[i].addActionListener(this);
@@ -30,22 +30,22 @@ public class TopMenu extends JPanel implements ActionListener {
 		JButton btn  = (JButton)e.getSource();
 		Login sp = (Login)((JButton)e.getSource()).getTopLevelAncestor();
 		switch(btn.getText()){
-		case "ÁÖ¹®":
+		case "ì£¼ë¬¸":
 			sp.viewScreen(new Main());
 			break;
-		case "¸ÅÃâ Á¶È¸":
+		case "ë§¤ì¶œ ì¡°íšŒ":
 			sp.viewScreen(new Sales());
 			break;
-		case "¸Þ´º °ü¸®":
+		case "ë©”ë‰´ ê´€ë¦¬":
 			try {
 				sp.viewScreen(new Menus());
 				break;
 			} catch (SQLException e1) {}
 			
-		case "Á¤º¸ ¼öÁ¤":
+		case "ì •ë³´ ìˆ˜ì •":
 			sp.viewScreen(new PersonalInfo());
 			break;
-		case "·Î±×¾Æ¿ô":
+		case "ë¡œê·¸ì•„ì›ƒ":
 			sp.viewScreen(new Sales());
 			break;
 		}

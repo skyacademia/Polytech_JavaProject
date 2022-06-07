@@ -16,7 +16,7 @@ public class signupPanel extends JPanel {
 	JTextField nameTf;
 	JTextField phoneTf;
 	JButton registerButton;
-	Font font = new Font("È¸¿ø°¡ÀÔ", Font.BOLD, 40);
+	Font font = new Font("íšŒì›ê°€ì…", Font.BOLD, 40);
 
 	String id = "", pass = "", passRe = "", name = "", phone = "";
 	Login lp;
@@ -25,24 +25,24 @@ public class signupPanel extends JPanel {
 		this.setSize(1920, 1080);
 		this.setLayout(null);
 		
-		JLabel idLabel = new JLabel("¾ÆÀÌµğ : ");
-		idLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel idLabel = new JLabel("ì•„ì´ë”” : ");
+		idLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		idLabel.setBounds(686, 164, 126, 60);
 		
-		JLabel passLabel = new JLabel("ºñ¹Ğ¹øÈ£ : ");
-		passLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel passLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸ : ");
+		passLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		passLabel.setBounds(655, 234, 157, 60);
 		
-		JLabel passReLabel = new JLabel("ºñ¹Ğ¹øÈ£ ÀçÈ®ÀÎ : ");
-		passReLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel passReLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸ í™•ì¸ : ");
+		passReLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		passReLabel.setBounds(553, 304, 259, 60);
 		
-		JLabel nameLabel = new JLabel("°¡°Ô ÀÌ¸§ : ");
-		nameLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel nameLabel = new JLabel("ê°€ê²Œ ì´ë¦„ : ");
+		nameLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		nameLabel.setBounds(642, 377, 170, 60);
 		
-		JLabel phoneLabel = new JLabel("¿¬¶ôÃ³ ¹øÈ£ : ");
-		phoneLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel phoneLabel = new JLabel("ì—°ë½ì²˜ : ");
+		phoneLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		phoneLabel.setBounds(609, 447, 203, 60);
 
 		idTf = new JTextField(15);
@@ -61,37 +61,37 @@ public class signupPanel extends JPanel {
 		phoneTf.setBounds(824, 447, 290, 60);
 
 		this.add(idLabel);
-		this.add(idTf); // ¾ÆÀÌµğ
+		this.add(idTf); // ì•„ì´ë””
 
 		this.add(passLabel);
 		this.add(passTf); // pass
-		JLabel label = new JLabel("Æ¯¼ö¹®ÀÚ + 8ÀÚ");
-		label.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		JLabel label = new JLabel("íŠ¹ìˆ˜ë¬¸ì + 8ì");
+		label.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 20));
 		label.setBounds(1126, 244, 140, 40);
-		this.add(label); //º¸¾È¼³Á¤
+		this.add(label); // ë³´ì•ˆì„¤ì •
 
 		this.add(passReLabel);
-		this.add(passReTf); // password ÀçÈ®ÀÎ
+		this.add(passReTf); // password ì¬í™•ì¸
 
 		this.add(nameLabel);
-		this.add(nameTf); // ÀÌ¸§
+		this.add(nameTf); // ì´ë¦„
 
 		this.add(phoneLabel);
 		this.add(phoneTf);
 
-		JLabel signupLabel = new JLabel("È¸¿ø°¡ÀÔ È­¸é ");
+		JLabel signupLabel = new JLabel("íšŒì›ê°€ì… í™”ë©´ ");
 		signupLabel.setBounds(800, 8, 270, 56);
 		signupLabel.setFont(font);
 		signupLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		registerButton = new JButton("È¸¿ø°¡ÀÔ");
+		registerButton = new JButton("íšŒì›ê°€ì…");
 		registerButton.setBounds(824, 517, 290, 60);
 		registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		this.add(signupLabel);
 		this.add(registerButton);
 
-		registerButton.addActionListener(new ActionListener() {      //È¸¿ø°¡ÀÔ¹öÆ°
+		registerButton.addActionListener(new ActionListener() {      //íšŒì›ê°€ì… ë²„íŠ¼
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -104,13 +104,13 @@ public class signupPanel extends JPanel {
 
 				String sql = "insert into user_info(uId, uPwd, uStoreName, uPhone, grade) values (?,?,?,?,?)";
 
-				Pattern passPattern1 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$"); //8ÀÚ ¿µ¹®+Æ¯¹®+¼ıÀÚ
+				Pattern passPattern1 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,20}$"); //8ì ì˜ë¬¸+íŠ¹ìˆ˜ë¬¸ì+ìˆ«ì
 				Matcher passMatcher = passPattern1.matcher(pass);
 
 				if (!passMatcher.find()) {
-					JOptionPane.showMessageDialog(null, "ºñ¹Ğ¹øÈ£´Â ¿µ¹®+Æ¯¼ö¹®ÀÚ+¼ıÀÚ 8ÀÚ·Î ±¸¼ºµÇ¾î¾ß ÇÕ´Ï´Ù", "ºñ¹Ğ¹øÈ£ ¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, "ë¹„ë°€ë²ˆí˜¸ëŠ” ì˜ë¬¸+íŠ¹ìˆ˜ë¬¸ì+ìˆ«ì 8ìë¡œ êµ¬ì„±ë˜ì–´ì•¼ í•©ë‹ˆë‹¤.", "ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜", 0);
 				} else if (!pass.equals(passRe)) {
-					JOptionPane.showMessageDialog(null, "ºñ¹Ğ¹øÈ£°¡ ¼­·Î ¸ÂÁö ¾Ê½À´Ï´Ù", "ºñ¹Ğ¹øÈ£ ¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, "ë¹„ë°€ë²ˆí˜¸ê°€ ì„œë¡œ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.", "ë¹„ë°€ë²ˆí˜¸ ì˜¤ë¥˜", 0);
 
 				} else {
 					try {
@@ -127,17 +127,17 @@ public class signupPanel extends JPanel {
 						pstmt.setString(5, "0");
 
 						int r = pstmt.executeUpdate();
-						System.out.println("º¯°æµÈ row " + r);
-						JOptionPane.showMessageDialog(null, "È¸¿ø °¡ÀÔ ¿Ï·á!", "È¸¿ø°¡ÀÔ", 1);
+						System.out.println("ë³€ê²½ëœ row " + r);
+						JOptionPane.showMessageDialog(null, "íšŒì› ê°€ì… ì™„ë£Œ!", "íšŒì›ê°€ì…", 1);
 						Login lps = (Login)((JButton)e.getSource()).getTopLevelAncestor();
 						lps.viewScreen(new LoginPanel());
-						//ÆĞ³Î ÀüÈ¯ ³Ö¾î¾ßµÊ!
+						//íŒ¨ë„ ì „í™˜ ë„£ì–´ì•¼ë¨!
 					} catch (SQLException e1) {
 						System.out.println("SQL error" + e1.getMessage());
 						if (e1.getMessage().contains("PRIMARY")) {
-							JOptionPane.showMessageDialog(null, "¾ÆÀÌµğ Áßº¹!", "¾ÆÀÌµğ Áßº¹ ¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, "ì•„ì´ë”” ì¤‘ë³µ!", "ì•„ì´ë”” ì¤‘ë³µ ì˜¤ë¥˜", 0);
 						} else
-							JOptionPane.showMessageDialog(null, "Á¤º¸¸¦ Á¦´ë·Î ÀÔ·ÂÇØÁÖ¼¼¿ä!", "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, "ì •ë³´ë¥¼ ì œëŒ€ë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”!", "ì˜¤ë¥˜", 0);
 					} // try ,catch
 				}
 			}

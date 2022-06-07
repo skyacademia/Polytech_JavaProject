@@ -42,18 +42,18 @@ public class Sales extends JPanel implements ActionListener{
 		JPanel sales_sub_1_2 = new JPanel();
 		
 		sales_sub_1_1.setLayout(new GridLayout(1,1,10,0));
-		JButton showSales = new JButton("���� ���");
+		JButton showSales = new JButton("매출 조회");
 		showSales.addActionListener(this);
 		sales_sub_1_1.add(showSales);
 		
 		
 		
 		sales_sub_1_2.setLayout(new GridLayout(1,2,10,0));
-		JLabel totalText = new JLabel("�� �ݾ�");
+		JLabel totalText = new JLabel("총금액");
 		salesPrice_text = new JTextField();
 		salesPrice_text.setEditable(false);
 		totalText.setHorizontalAlignment(JLabel.CENTER);
-		sales_sub_1_2.add(new JLabel("�� �ݾ�"));
+		sales_sub_1_2.add(new JLabel("총금액"));
 		sales_sub_1_2.add(salesPrice_text);
 		
 		
@@ -62,7 +62,8 @@ public class Sales extends JPanel implements ActionListener{
 		sales_sub_1.add(sales_sub_1_2);
 		
 		sales_sub_2.setLayout(new GridLayout(1,1));
-		String[] table_colum = {"�ð�","�ݾ�","��������"};
+		String[] table_colum = {"시간","가격","결제수단"};
+	
 		tModel= new DefaultTableModel(table_colum,0) {
 			public boolean isCellEditable(int i, int c) {
                 return false;

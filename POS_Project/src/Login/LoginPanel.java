@@ -22,7 +22,7 @@ class LoginPanel extends JPanel implements ActionListener{
 
 	JTextField idTextField;
 	JPasswordField passTextField;
-	Font font = new Font("È¸¿ø°¡ÀÔ", Font.BOLD, 40);
+	Font font = new Font("íšŒì›ê°€ì…", Font.BOLD, 40);
 	Login lp;
 	String StoreName = "";
 	
@@ -31,36 +31,36 @@ class LoginPanel extends JPanel implements ActionListener{
 		this.setSize(1920, 1080);
 		this.setLayout(null);
 
-		JLabel loginLabel = new JLabel("·Î±×ÀÎ È­¸é");
+		JLabel loginLabel = new JLabel("ë¡œê·¸ì¸ í™”ë©´");
 		loginLabel.setFont(font);
 		this.setLayout(null);
 
-		JLabel idLabel = new JLabel(" ¾ÆÀÌµğ : ");
-		idLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel idLabel = new JLabel(" ì•„ì´ë”” : ");
+		idLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		idLabel.setBounds(650, 364, 180, 65);
 		this.add(idLabel);
 
 		idTextField = new JTextField(15);
-		idTextField.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		idTextField.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		idTextField.setBounds(842, 364, 410, 65);
 		this.add(idTextField);
 
-		JLabel passLabel = new JLabel(" ºñ¹Ğ¹øÈ£ : ");
-		passLabel.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		JLabel passLabel = new JLabel(" ë¹„ë°€ë²ˆí˜¸ : ");
+		passLabel.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		passLabel.setBounds(650, 459, 180, 65);
 		this.add(passLabel);
 
 		passTextField = new JPasswordField(15);
-		passTextField.setFont(new Font("±Ã¼­", Font.PLAIN, 30));
+		passTextField.setFont(new Font("ê¶ì„œ", Font.PLAIN, 30));
 		passTextField.setBounds(842, 459, 410, 65);
 		this.add(passTextField);
 		
 		
-		JButton loginButton = new JButton("·Î±×ÀÎ");
+		JButton loginButton = new JButton("ë¡œê·¸ì¸");
 		loginButton.setBounds(1052, 554, 200, 80);
 		this.add(loginButton);
 
-		JButton signupButton = new JButton("È¸¿ø°¡ÀÔ");
+		JButton signupButton = new JButton("íšŒì›ê°€ì…");
 		signupButton.setBounds(842, 554, 200, 80);
 		this.add(signupButton);
 
@@ -109,14 +109,14 @@ class LoginPanel extends JPanel implements ActionListener{
 			rset.next();
 
 			if (pass.equals(rset.getString(1))) {
-				JOptionPane.showMessageDialog(this, "Login Success", "·Î±×ÀÎ ¼º°ø", 1);
+				JOptionPane.showMessageDialog(this, "Login Success", "ë¡œê·¸ì¸ ì„±ê³µ", 1);
 				sp.viewScreen(new Main());
-				//¸ŞÀÎ ÆĞ³Î·Î ¿Å°Ü¾ßµË´Ï´Ù.
+				//ë©”ì¸ íŒ¨ë„ë¡œ ì˜®ê²¨ì•¼ë©ë‹ˆë‹¤.
 			} else
-				JOptionPane.showMessageDialog(this, "Login Failed", "·Î±×ÀÎ ½ÇÆĞ", 0);
+				JOptionPane.showMessageDialog(this, "Login Failed", "ë¡œê·¸ì¸ ì‹¤íŒ¨", 0);
 
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, "Login Failed", "·Î±×ÀÎ ½ÇÆĞ", 0);
+			JOptionPane.showMessageDialog(this, "Login Failed", "ë¡œê·¸ì¸ ì‹¤íŒ¨", 0);
 			System.out.println("SQLException" + ex);
 		}
 
