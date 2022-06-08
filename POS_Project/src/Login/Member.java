@@ -1,33 +1,73 @@
 package Login;
 
-public class Member {
+class Member {
+
+	private static String StoreName;
+	private static int grade;
+	private static String uId;
+	private static String password;
+	private static String phone;
 	
-	private String StoreName = "";
-	private int grade;
-	
+	public String getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(String Phone) {
+		Member.Phone = Phone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		Member.password = password;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
+	}
+
 	public String getStoreName() {
 		return StoreName;
 	}
-	
+
 	public void setStoreName(String storeName) {
 		StoreName = storeName;
 	}
-	
+
 	public int getGrade() {
 		return grade;
 	}
-	
+
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	
-	Member(String StoreName, int grade) {
+
+	public void setMember(String uId, String password, String StoreName, int grade) {
+		this.uId = uId;
+		this.password = password;
 		this.StoreName = StoreName;
 		this.grade = grade;
 	}
-	
+
+	Member(String uId, String password, String StoreName, int grade) {
+		this.uId = uId;
+		this.password = password;
+		this.Phone = Phone;
+		this.StoreName = StoreName;
+		this.grade = grade;
+	}
+
+	public Member() {
+	}
+
 	public String toString() {
-		return this.StoreName + this.grade;
-		
+		return this.uId + this.password + this.Phone + this.StoreName + this.grade;
+
 	}
 }
