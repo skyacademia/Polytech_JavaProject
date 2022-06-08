@@ -101,7 +101,7 @@ class LoginPanel extends JPanel implements ActionListener{
 		try {
 			SqlConnection sqlConn = new SqlConnection();
 			Connection conn = sqlConn.getConnection();
-			String sql_query = String.format("SELECT uId,uPwd,grade,uStoreName FROM user_info WHERE uId = '%s' AND uPwd ='%s'", id, pass);
+			String sql_query = String.format("SELECT uId,uPwd,uPhone,grade,uStoreName FROM user_info WHERE uId = '%s' AND uPwd ='%s'", id, pass);
 
 			Statement stmt = conn.createStatement();
 
@@ -112,8 +112,9 @@ class LoginPanel extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(this, "Login Success", "로그인 성공", 1);
 				m.setuId(rset.getString(1));
 				m.setPassword(rset.getString(2));
-				m.setGrade(rset.getInt(3));
-				m.setStoreName(rset.getString(4));
+				m.setPhone(rset.getString(3));
+				m.setGrade(rset.getInt(4));
+				m.setStoreName(rset.getString(5));
 				sp.viewScreen(new Main());
 				
 			} else
