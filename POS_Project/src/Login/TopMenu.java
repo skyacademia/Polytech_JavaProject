@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class TopMenu extends JPanel implements ActionListener {
+	Member m = new Member();
 	public JPanel getMenuPanel() {
 		return this;
 	}
@@ -46,7 +48,15 @@ public class TopMenu extends JPanel implements ActionListener {
 			sp.viewScreen(new PersonalInfo());
 			break;
 		case "로그아웃":
-			sp.viewScreen(new Sales());
+			int select = JOptionPane.showConfirmDialog(null, "정말로 로그아웃하시겠습니까?","Logout",JOptionPane.YES_NO_OPTION);
+			if (select == JOptionPane.CLOSED_OPTION) {
+				break;
+			}else if (select == JOptionPane.YES_OPTION) {
+				m.setMember("", "", "", 0);
+				sp.viewScreen(new LoginPanel());
+			}else {
+				break;
+			}
 			break;
 		}
 	}
