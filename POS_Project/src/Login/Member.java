@@ -6,6 +6,15 @@ class Member {
 	private static int grade;
 	private static String uId;
 	private static String password;
+	private static String phone;
+	
+	public String getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(String Phone) {
+		Member.Phone = Phone;
+	}
 
 	public String getPassword() {
 		return password;
@@ -49,6 +58,7 @@ class Member {
 	Member(String uId, String password, String StoreName, int grade) {
 		this.uId = uId;
 		this.password = password;
+		this.Phone = Phone;
 		this.StoreName = StoreName;
 		this.grade = grade;
 	}
@@ -57,7 +67,7 @@ class Member {
 	}
 
 	public String toString() {
-		return this.uId + this.password + this.StoreName + this.grade;
+		return this.uId + this.password + this.Phone + this.StoreName + this.grade;
 
 	}
 }
