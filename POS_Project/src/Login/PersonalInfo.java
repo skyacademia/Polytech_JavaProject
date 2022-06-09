@@ -40,6 +40,7 @@ public class PersonalInfo extends JPanel implements ActionListener{
 			info_sub_1.add(newPanel);
 		}
 		personInfoInput[0].setText(m.getuId());
+		personInfoInput[3].setText(m.getPhone());
 		personInfoInput[4].setText(m.getStoreName());
 		if (!m.getuId().equals("admin"))
 			personInfoInput[0].setEnabled(false);
