@@ -7,13 +7,13 @@ class Member {
 	private static String uId;
 	private static String password;
 	private static String phone;
-	
+
 	public String getPhone() {
-		return Phone;
+		return phone;
 	}
 
-	public void setPhone(String Phone) {
-		Member.Phone = Phone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPassword() {
@@ -21,7 +21,7 @@ class Member {
 	}
 
 	public void setPassword(String password) {
-		Member.password = password;
+		this.password = password;
 	}
 
 	public String getuId() {
@@ -67,7 +67,6 @@ class Member {
 	}
 
 	public String toString() {
-		return this.uId + this.password + this.Phone + this.StoreName + this.grade;
-
+		return this.uId + this.password + this.phone + this.StoreName + this.grade;
 	}
 }
