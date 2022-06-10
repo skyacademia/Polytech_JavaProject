@@ -33,7 +33,6 @@ public class Sales extends JPanel implements ActionListener{
 	JComboBox yearCategoryBox;
 	JComboBox monthCategoryBox;
 	Sales() throws SQLException{
-		
 		setLayout(new BorderLayout());
 		SqlConnection sqlcon=new SqlConnection();
 		c = sqlcon.getConnection();
@@ -91,7 +90,7 @@ public class Sales extends JPanel implements ActionListener{
 		salesPrice_text = new JTextField();
 		salesPrice_text.setEditable(false);
 		totalText.setHorizontalAlignment(JLabel.CENTER);
-		sales_sub_1_2.add(new JLabel("총금액"));
+		sales_sub_1_2.add(totalText);
 		sales_sub_1_2.add(salesPrice_text);
 		
 		
@@ -154,6 +153,18 @@ public class Sales extends JPanel implements ActionListener{
 		} catch (SQLException e1) {}
 	}
 	public void getSalesInfo() throws SQLException {
+		try{
+			setSaleInfo();
+		} catch (SQLException e1) {}
+		for (int i=0; i<sales_info.size();i++) {
+			tModel.addRow(sales_info.get(i));
+			int price = (int) sales_info.get(i)[1];
+			salesPrice_value+=price;
+		}
+		salesPrice_text.setText(Integer.toString(salesPrice_value));
+	}
+	public void setSaleInfo() throws SQLException {
+
 		Statement stat = c.createStatement();
 		String sql = "select * from daily_info";
 		ResultSet rs = stat.executeQuery(sql);
@@ -198,8 +209,11 @@ public class Sales extends JPanel implements ActionListener{
 				}
 					
 		}
+	public JComboBox makeCombo() {
+		HashSet<String> category = new HashSet<String>();
+		return null;
 	}
-	
+	}
 }
 	
 

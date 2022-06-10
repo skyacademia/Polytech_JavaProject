@@ -38,7 +38,9 @@ public class TopMenu extends JPanel implements ActionListener {
 		case "매출 조회":
 			try {
 				sp.viewScreen(new Sales());
-			} catch (SQLException e2) {}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
 			break;
 		case "메뉴 관리":
 			try {

@@ -12,8 +12,12 @@ class Member {
 		return phone;
 	}
 
+
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public void getPhone(String phone) {
+		Member.phone = phone;
 	}
 
 	public String getPassword() {
