@@ -58,7 +58,7 @@ class Member {
 	Member(String uId, String password, String StoreName, int grade) {
 		this.uId = uId;
 		this.password = password;
-		this.Phone = Phone;
+		this.phone = phone;
 		this.StoreName = StoreName;
 		this.grade = grade;
 	}

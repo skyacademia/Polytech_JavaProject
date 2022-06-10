@@ -238,15 +238,19 @@ public class Order extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			JButton btn = (JButton) e.getSource();
-			for (int i = 0; i < menu_by_category.size(); i++) {
-				String button_text = "<html>";
-				if (btn.getText() != null) {
-					String menuName = (String) menu_by_category.get(i)[0];
-					int menuPrice = (int) menu_by_category.get(i)[1];
-					button_text += String.format("%s<br>%d", menuName, menuPrice);
-					button_text += "</html>";
-					itemBtns[i].setMenuInfo(menuName, menuPrice);
-					itemBtns[i].setText(button_text);
+			for (int i=0; i<itemBtns.length; i++) {
+				if (i < menu_by_category.size()) {
+					String button_text = "<html>";
+					if (!btn.getText().equals("")) {
+						String menuName = (String) menu_by_category.get(i)[0];
+						int menuPrice = (int) menu_by_category.get(i)[1];
+						button_text += String.format("%s<br>%d", menuName, menuPrice);
+						button_text += "</html>";
+						itemBtns[i].setMenuInfo(menuName, menuPrice);
+						itemBtns[i].setText(button_text);
+					}
+				}else {
+					itemBtns[i].setText("");
 				}
 			}
 		}
@@ -262,7 +266,7 @@ public class Order extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			int count = 1;
 			menuButton clickedBtn = (menuButton) e.getSource();
-			if (clickedBtn.getText() != null) {
+			if (!clickedBtn.getText().equals("")) {
 				Object[] sendingData = { menu_name, count, menu_price, menu_price * count };
 
 				boolean added = false;
@@ -283,11 +287,18 @@ public class Order extends JFrame {
 				showOrderTable();
 				showOrderTotal();
 			}
+			else if(clickedBtn.getText().equals("")) {
+				
+			}
 		}
 
 		public void setMenuInfo(String name, int price) {
 			menu_name = name;
 			menu_price = price;
+		}
+		public void reset() {
+			this.menu_name = "";
+			this.menu_price = 0;
 		}
 	}
 
